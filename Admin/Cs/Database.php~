@@ -1,0 +1,18 @@
+<?php
+
+class Cs_Connect 
+{
+	
+	public function conBase() {
+		require "../../../db.inc";	// Information for database connection
+		$con = mysql_connect($dbplace,$dbuser,$dbpass);
+		mysql_select_db("cmsbase",$con);
+	}
+
+	public function getQuery() {
+		
+	}
+
+}
+
+?>

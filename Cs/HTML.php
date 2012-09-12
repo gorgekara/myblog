@@ -230,10 +230,8 @@ class Cs_HTML
 						$tagarr[] = implode(' ', $tagrow);
 					}
 					
-					$result = array_unique($tagarr);
-
-					foreach($result as $i => $value) {
-						$result2 = implode(' ', $result);
+					foreach($tagarr as $i => $value) {
+						$result2 = implode(' ', $tagarr);
 					}
 
 					$result3 = explode(' ', $result2);
@@ -285,8 +283,10 @@ class Cs_HTML
 									</a>
 								</div>";
 
-						$check_admin = mysql_query("SELECT * FROM usernames WHERE usernames.UserID LIKE '" .$_SESSION['userid']. "' AND usernames.Admin LIKE 1") or die("Custom error!");
-						if(mysql_num_rows($check_admin) != 0) {
+						$check_mod = mysql_query("SELECT * FROM usernames WHERE usernames.UserID LIKE '" .$_SESSION['userid']. "' AND usernames.Admin = 1") or die("Custom error!");
+						$check_admin = mysql_query("SELECT * FROM usernames WHERE usernames.UserID LIKE '" .$_SESSION['userid']. "' AND usernames.Admin = 2") or die("Custom error!");
+ 
+						if(mysql_num_rows($check_mod) != 0) {
 							echo "	<div class=\"user_admin\">
 										<div>
 											&nbsp;
@@ -298,7 +298,20 @@ class Cs_HTML
 											Categories
 										</a>
 									</div>";	
-						} 
+						}
+						else if(mysql_num_rows($check_admin) != 0) {
+							echo "	<div class=\"user_admin\">
+										<div>
+											&nbsp;
+										</div>
+										<a href=\"admin.php\">
+											Manage users
+										</a>
+										<a href=\"profile.php?u=" .$_SESSION['username']. "\">
+											Categories
+										</a>
+									</div>";
+						}
 
 						// Log out button
 						echo "<form action=\"login.php\" class=\"logout_box\" method=\"post\">

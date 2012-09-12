@@ -169,7 +169,7 @@ class Cs_Post
 				}	
 			}
 			else {
-				echo "<div class=\"note_text_space\">Sorry, we couldn't find anything with <b>" .stripcslashes($query). "</b></div>";
+				echo "<div class=\"note_text_space\">Sorry, we couldn't find anything with <b>" .stripslashes($query). "</b></div>";
 			}
 		}
 		
@@ -365,7 +365,7 @@ class Cs_Post
 	public function removeComment($cid) {
 		$clean_cid = mysql_real_escape_string($cid);
 		$removal = mysql_query("DELETE FROM commenting WHERE commenting.CommentID LIKE '" .$clean_cid. "'") or die("Custom error!");
-		if(isset($remova)) {
+		if(isset($removal)) {
 			$removal_comment = mysql_query("DELETE FROM comments WHERE comments.CommentID LIKE '" .$clean_cid. "'") or die("Custom error!");				
 		}
 	}

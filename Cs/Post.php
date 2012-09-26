@@ -369,6 +369,63 @@ class Cs_Post
 			$removal_comment = mysql_query("DELETE FROM comments WHERE comments.CommentID LIKE '" .$clean_cid. "'") or die("Custom error!");				
 		}
 	}
+
+	public function getCategories() {
+		$query_cat = mysql_query("SELECT * FROM category") or die("Custom error!");
+		while($q = mysql_fetch_array($query_cat)) {
+			$get_num = mysql_query("SELECT * FROM post WHERE post.CategoryID LIKE '" .$q['CategoryID']. "'") or die("Custom error!");
+			$num = mysql_num_rows($get_num);
+			echo "<div class=\"m_info\">";
+				echo "<a href=\"category.php?id=" .$q['CategoryID']. "\">" .$q['Categories']. " (" .$num. ")</a>";
+				if($q['CategoryID'] != 1) {
+					echo "<div class=\"right_side\">";
+						echo "<a href=\"admin_category.php?rcid=" .$q['CategoryID']. "\"><img src=\"Images/remove.png\" alt=\"remove\" /> remove</a>&nbsp;&nbsp;&nbsp;<a href=\"admin_category.php?mcid=" .$q['CategoryID']. "\"><img src=\"Images/cog.png\" alt=\"remove\" /> modify</a>";
+					echo "</div>"; 
+				}
+			echo "</div>";
+		}
+	}
+	
+	public function addCat($value) {
+		$check_cat = mysql_query("SELECT * FROM category WHERE category.Categories LIKE '" .$value. "'") or die("Custom error!");
+		if(mysql_num_rows($check_cat) == 0) {
+			$add_cat = mysql_query("INSERT INTO category VALUES('','" .$value. "')") or die("Custom error!");
+			header("Location: admin_category.php");
+		}
+	}
+	
+	public function removeCat($value) {
+		if($value != 1) {
+			$check_cat = mysql_query("SELECT * FROM category, post WHERE category.CategoryID LIKE post.CategoryID AND category.CategoryID LIKE '" .$value. "'") or die("Custom error! 1");
+			if(mysql_num_rows($check_cat) == 0) {
+				$rem_cat = mysql_query("DELETE FROM category WHERE category.CategoryID LIKE '" .$value. "'") or die("Custom error! 2");
+			}
+			else {
+				while($q = mysql_fetch_array($check_cat)) {
+					$update_post = mysql_query("UPDATE post SET CategoryID = 1 WHERE CategoryID LIKE '" .$q['CategoryID']. "'") or die("Custom error! 3");
+					$rem_cat = mysql_query("DELETE FROM category WHERE category.CategoryID LIKE '" .$q['CategoryID']. "'") or die("Custom error! 4");
+				}
+			}
+			header("Location: admin_category.php");
+		}
+	}
+	
+	public function modifyCatForm($value) {
+		$form = new Cs_Forms;
+		$get_category = mysql_query("SELECT * FROM category WHERE category.CategoryID LIKE '" .$value. "'") or die("Custom error!");
+		$q = mysql_fetch_array($get_category);
+		$form->addFormStart("admin_category.php", "post", "modify_category");
+			$form->addInputValue("admin_category.php", "cat_name", $q['Categories']);
+			$form->addInputValue("hidden", "cat_id", $q['CategoryID']);
+			$form->addInput("submit", "Modify");
+		$form->addFormEnd();
+	}
+	
+	public function modifyCat($catid,$catname) {
+		$update_cat = mysql_query("UPDATE category SET category.Categories = '" .$catname. "' WHERE category.CategoryID LIKE '" .$catid. "'") or die("Custom error!");
+		header("Location: admin_category.php");
+	}
+	
 }
 
 ?>

@@ -18,7 +18,6 @@ $base->conBase();	// Connect to database
 
 $ht->htmlStart();
 	$ht->htmlHead();
-	$ht->htmlMenu();
 	echo "<div class=\"main\">";
 		echo "<div class=\"content\">";
 				echo "<div class=\"small_content\">";
@@ -32,7 +31,7 @@ $ht->htmlStart();
 				echo "<div class=\"sidebar2\">";
 
 					// Elements in left sidebar - existing ones: search, recent_posts, recent_comments, tag_cloud, twitter, register
-					$elements2 = array('register','twitter');
+					$elements2 = array('register',);
 					$ht->sidebar($elements2);
 
 				echo "</div>";

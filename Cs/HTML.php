@@ -1,11 +1,14 @@
 <?php
 
+require_once "Session.php";
+
 class Cs_HTML
 {
 	
 	public function htmlStart() {
 
 		ob_start();
+		$session = new Cs_Session;
 		
 		$get_title = mysql_query("SELECT * FROM options WHERE OptionName LIKE 'Site Title'") or die("Custom error!");
 		$gt = mysql_fetch_array($get_title);
@@ -14,12 +17,29 @@ class Cs_HTML
 		echo "<html xmlns=\"http://www.w3.org/1999/xhtml\">";
 		echo "<head>";
 			echo "<title>" .$gt['Value']. "</title>";
-			echo "<link rel=\"stylesheet\" href=\"Styles/main.css\" />"; 
+			
 			echo "<script src=\"Cs/External/nicEdit.js\" type=\"text/javascript\"></script>";
 			echo "<script type=\"text/javascript\">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>";
 			echo "<script type=\"text/javascript\" src=\"Cs/External/jquery.js\"></script>";
+			echo "<script type=\"text/javascript\" src=\"Cs/External/jquery-ui-1.8.23.custom.min.js\"></script>";
+			
+			echo "<link type=\"text/css\" href=\"Styles/ui-lightness/jquery-ui-1.8.23.custom.css\" rel=\"stylesheet\" />";
+			echo "<link rel=\"stylesheet\" href=\"Styles/main.css\" />"; 
+			
 			echo "</head>";
 		echo "<body>";
+		
+		if($session->checkSes() != 1) {
+			echo "	<div id=\"Popup\">
+					<a id=\"popupClose\"><img src=\"Images/cross.png\" alt=\"close\"></a>
+					<div class=\"popup_header\">Welcome to " .$gt['Value']. "</div>
+					<div class=\"popup_tagline\">Please register if you want the full experience!</div>   
+				</div> 
+				<div id=\"bgPopup\"></div>";
+			$_SESSION['visitor'] = 1;
+		}		
+		
+	echo "</div>";
 	}
 
 	public function htmlEnd() {
@@ -47,23 +67,62 @@ class Cs_HTML
 				}
 			});
 			
-		});
+			});
+			
+			function disablePopup(){
+				if ($("#bgPopup").data("state")==1){
+					$("#bgPopup").fadeOut("medium");
+					$("#Popup").fadeOut("medium");
+					$("#bgPopup").data("state",0);
+				}
+			}
+			$(document).ready(function() {
+			   $("#bgPopup").data("state",0);
+				var winw = $(window).width();
+				var winh = $(window).height();
+				var popw = $('#Popup').width();
+				var poph = $('#Popup').height();
+				$("#Popup").css({
+			        "position" : "absolute",
+			        "top" : winh/2-poph/2,
+			        "left" : winw/2-popw/2
+				});
+				//IE6
+				$("#bgPopup").css({
+					"height": winh	
+				});
+				if($("#bgPopup").data("state")==0){
+					$("#bgPopup").css({
+						"opacity": "0.7"
+					});
+					$("#bgPopup").fadeIn("medium");
+					$("#Popup").fadeIn("medium");
+					$("#bgPopup").data("state",1);
+				} 
+			   $("#popupClose").click(function(){
+				   	disablePopup();
+			   });
+			   $(document).keypress(function(e){
+					if(e.keyCode==27) {
+						disablePopup();	
+					}
+				});
+				$(".option_tabs").tabs();
+});
+
+//Recenter the popup on resize - Thanks @Dan Harvey [http://www.danharvey.com.au/]
+$(window).resize(function() {
+centerPopup();
+});
+
+
+
+			
 		</script>
 		
 		<?php	echo "<div class=\"footer\">" .$gf['Value']. "</div>";
 		echo "</body>";
 		echo "</html>";
-	}
-
-	//	Menu for blog
-	public function htmlMenu() {
-		echo "<div class=\"menu\">";
-			echo "<div class=\"menu_item\"><a href=\"index.php\">Home</a></div>";
-			$query = mysql_query("SELECT * FROM category") or die("Database error!");
-			while($q = mysql_fetch_array($query)) {
-				echo "<div class=\"menu_item\"><a href=\"category.php?id=" .$q['CategoryID']. "\">" .$q['Categories']. "</a></div>";
-			}
-		echo "</div>";
 	}
 
 	//	Menu for admin
@@ -97,8 +156,14 @@ class Cs_HTML
 			echo "<div class=\"logo\"><a href=\"index.php\"><img class=\"logo\" src=\"" .$gi['Value']. "\" alt=\"logo\" /></a></div>";
 			echo "<div class=\"header_title\">" .$gt['Value']. "</div>";
 			echo "<div class=\"header_tagline\">" .$gtg['Value']. "</div>";
+			echo "<div class=\"menu\">";
+				echo "<div class=\"menu_item\"><a href=\"index.php\">Home</a></div>";
+				$query = mysql_query("SELECT * FROM category") or die("Database error!");
+				while($q = mysql_fetch_array($query)) {
+					echo "<div class=\"menu_item\"><a href=\"category.php?id=" .$q['CategoryID']. "\">" .$q['Categories']. "</a></div>";
+				}
+			echo "</div>";
 		echo "</div>";
-		
 	}
 
 	public function cleaner() {
@@ -294,7 +359,7 @@ class Cs_HTML
 										<a href=\"admin.php\">
 											Manage users
 										</a>
-										<a href=\"profile.php?u=" .$_SESSION['username']. "\">
+										<a href=\"admin_category.php\">
 											Categories
 										</a>
 									</div>";	
@@ -382,6 +447,27 @@ class Cs_HTML
         }
 
         return $timetag;
+	}
+	
+	public function getOptionsForm() {
+		$form = new Cs_Forms;
+		$options = mysql_query("SELECT * FROM options") or die("Custom error!");
+		$form->addFormStart("options.php", "post", "registration_form");
+		echo "<table>";
+		
+			while($o = mysql_fetch_array($options)) {				
+				echo "<tr>";
+					echo "<td>";
+						echo $o['OptionName'];
+					echo "</td>";
+					echo "<td>";
+						$form->addInputValue("text", $o['OptionName'], $o['Value']);
+					echo "</td>";
+				echo "</tr>";
+				
+			}
+		echo "</table>";
+		$form->addFormEnd();
 	}
 
 }

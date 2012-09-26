@@ -12,6 +12,15 @@ class Cs_Session
 		}
 	}
 
+	public function checkSes() {
+		if(isset($_SESSION['visitor'])) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
+	}
+
 }
 
 ?>

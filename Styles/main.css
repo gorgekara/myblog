@@ -15,7 +15,7 @@
 body {
 	font-family:Ubuntu,Verdana,Arial;
 	color:#545454;
-	background:#545454;
+	background:#f4f4f4;
 }
 
 /*
@@ -26,11 +26,7 @@ body {
 	margin:0 auto;
 	width:900px;
 	padding:0 20px 10px 20px;
-	color:#F4F4F4;
-	border:1px solid #545454;
-	border-radius:3px;
-	-web-border-radius:3px;
-	-moz-border-radius:3px;
+	color:#777;
 }
 
 .logo {
@@ -59,12 +55,15 @@ body {
 .main {
 	width:900px;
 	margin:0 auto;
-	background:#F4F4F4;
+	background:#FFF;
 	border:1px solid #DDD;
 	padding:10px;
 	border-radius:3px;
-	-web-border-radius:3px;
+	-webkit-border-radius:3px;
 	-moz-border-radius:3px;
+	box-shadow:1px 1px 1px #DDD;
+	-webkit-box-shadow:1px 1px 1px #DDD;
+	-moz-box-shadow:1px 1px 1px #DDD;
 }
 
 .content {
@@ -77,10 +76,6 @@ body {
 	width:400px;
 	background:#FFF;
 	padding:5px;
-	border:1px solid #DDD;
-	border-radius:3px;
-	-web-border-radius:3px;
-	-moz-border-radius:3px;
 }
 
 .sidebar {
@@ -128,14 +123,8 @@ h1 {
 */
 
 .menu {
-	margin:0 auto 10px auto;
-	width:900px;
-	background:#0099CC;
-	padding:5px 10px 5px 10px;
-	border:1px solid #0099CC;
-	border-radius:3px;
-	-web-border-radius:3px;
-	-moz-border-radius:3px;
+	margin:-32px 0 0 0;
+	float:right;
 }
 
 .menu_item {
@@ -145,18 +134,16 @@ h1 {
 }
 
 .menu_item a:link,.menu_item a:visited {
-	text-decoration:none;
-	color:#FFF;
-	padding:5px 10px 5px 10px;
-	border:1px solid #0099CC;
+	text-decoration: none;
+	color: #777;
+	padding: 5px 10px 5px 10px;
+	font-size: 18px;
 }
 
 .menu_item a:hover {
 	text-decoration:none;
 	background:#00BFFF;
 	color:#FFF;
-	padding:5px 10px 5px 10px;
-	border:1px solid #00BFFF;
 }
 
 .admin_menu_item {
@@ -691,4 +678,59 @@ a.more:link,a.more:visited {
 .m_info img {
 	width:13px;
 	vertical-align:-2px;
+}
+
+#popupClose{  
+	font-size:20px;  
+	line-height:20px;  
+	position:absolute;
+	right:6px;  
+	top:4px;  
+	font-weight:700; 
+	display:block;  
+}
+
+#bgPopup{
+	display:none; 
+	position:fixed;  
+	_position:absolute; /* hack for internet explorer 6*/  
+	height:100%;  
+	width:100%;  
+	top:0;  
+	left:0;  
+	background:#000000;   
+	z-index:1;  
+}  
+
+#Popup{  
+	display:none;  
+	position:fixed;  
+	_position:absolute; /* hack for internet explorer 6 */ 
+	background:#FFFFFF;  
+	border:2px solid #cecece;  
+	z-index:2;  
+	padding:12px;  
+	font-size:13px;  
+} 
+
+#myButton{
+	display:block;
+	position:relative;
+	width:200px;
+	height:50px;
+	line-height:50px;
+	font-family:"Trebuchet MS";
+	font-size:14px
+	text-align:center;	
+}
+
+.popup_header {
+	font-size:25px;
+	font-family:Droid Serif;
+	padding:10px;
+}
+
+.popup_tagline {
+	font-size:15px;
+	padding:10px;
 }

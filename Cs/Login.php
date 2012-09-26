@@ -88,8 +88,17 @@ class Cs_Login
 		$q = mysql_fetch_array($query);
 		
 		$form = new Cs_Forms;
+		$html = new Cs_HTML;
 
 		echo "<h1><img class=\"option_img\" src=\"Images/cog.png\" alt=\"options\" /> Options</h1>";
+		echo "<div class=\"option_tabs\">";
+			echo "<ul>";
+				echo "<li><a href=\"#tabs-1\">Profile Options</a></li>";
+				if($q['Admin'] == 1) {
+					echo "<li><a href=\"#tabs-2\">Blog Options</a></li>";
+				}
+			echo "</ul>";
+		echo "<div id=\"tabs-1\">";
 		$form->addFormStart('','post','registration_form');
 			$form->addInputValue('hidden','userid',$_SESSION['userid']);
 			echo "<table>";				
@@ -166,6 +175,13 @@ class Cs_Login
 				echo "</tr>";	
 			echo "</table>";
 		$form->addFormEnd();
+		echo "</div>";
+		if($q['Admin'] == 1) {
+			echo "<div id=\"tabs-2\">";
+				$html->getOptionsForm();
+			echo "</div>";
+		}
+		echo "</div>";
 	}
 
 	public function updateUser($username,$password,$confirm,$email,$about,$name,$surname,$userid) {

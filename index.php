@@ -17,7 +17,6 @@ $base->conBase();	// Connect to database
 
 $ht->htmlStart();
 	$ht->htmlHead();
-	$ht->htmlMenu();
 	echo "<div class=\"main\">";
 		echo "<div class=\"content\">";
 			echo "<div class=\"small_content\">"; 
@@ -45,7 +44,8 @@ $ht->htmlStart();
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/
 libs/jquery/1.3.0/jquery.min.js"></script>
 
-<script type="text/javascript">
+<script type="text/javascript">		
+			
 $(function() {
 //More Button
 $('.more').live("click",function() 

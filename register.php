@@ -20,7 +20,6 @@ $base->conBase();	// Connect to database
 
 $ht->htmlStart();
 	$ht->htmlHead();
-	$ht->htmlMenu();
 	echo "<div class=\"main\">";
 		echo "<div class=\"content\">";
 		$form->addFormStart('','post','registration_form');

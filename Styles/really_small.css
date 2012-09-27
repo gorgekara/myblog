@@ -24,7 +24,7 @@ body {
 
 .header {
 	margin:0 auto;
-	width:900px;
+	width:100%;
 	padding:0 20px 10px 20px;
 	color:#777;
 }
@@ -53,8 +53,8 @@ body {
 }
 
 .main {
-	width:900px;
-	margin:0 auto;
+	width:544px;
+	margin:42px auto;
 	background:#FFF;
 	border:1px solid #DDD;
 	padding:10px;
@@ -68,12 +68,12 @@ body {
 
 .content {
 	float:left;
-	width:650px;
+	width:535px;
 }
 
 .small_content {
 	float:left;
-	width:400px;
+	width:100%;
 	background:#FFF;
 	padding:5px;
 }
@@ -81,16 +81,18 @@ body {
 .sidebar {
 	float:right;
 	width:240px;
+	display:none;
 }
 
 .sidebar2 {
 	float:right;
 	width:230px;
+	display:none;
 }
 
 .footer {
 	margin:10px auto;
-	width:900px;
+	width:100%;
 	font-size:13px;
 }
 
@@ -124,8 +126,8 @@ h1 {
 */
 
 .menu {
-	margin:-32px 0 0 0;
-	float:right;
+	margin:15px 0 0 0;
+	float:left;
 }
 
 .menu_item {
@@ -164,7 +166,7 @@ h1 {
 }
 
 .post_title a:link,.post_title a:visited {
-	font-size:13pt;
+	font-size:17pt;
 	text-decoration:none;
 	color:#0099CC;
 	font-family:DroidSerif;
@@ -176,11 +178,11 @@ h1 {
 }
 
 .post_content img {
-	max-width:370px;
+	max-width:500px;
 }
 
 .post_image {
-	width:370px;
+	width:500px;
 	border:1px solid #DDD;
 	padding:3px;
 	border-radius:3px;

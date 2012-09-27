@@ -24,7 +24,10 @@ class Cs_HTML
 			echo "<script type=\"text/javascript\" src=\"Cs/External/jquery-ui-1.8.23.custom.min.js\"></script>";
 			
 			echo "<link type=\"text/css\" href=\"Styles/ui-lightness/jquery-ui-1.8.23.custom.css\" rel=\"stylesheet\" />";
-			echo "<link rel=\"stylesheet\" href=\"Styles/main.css\" />"; 
+			echo "<link href=\"Styles/main.css\" type=\"text/css\" media=\"screen and (max-device-width: 1366px)\" rel=\"stylesheet\"/>";
+			echo "<link href=\"Styles/small.css\" type=\"text/css\" media=\"screen and (max-width: 795px)\" rel=\"stylesheet\"/>"; 
+			echo "<link href=\"Styles/really_small.css\" type=\"text/css\" media=\"screen and (max-width: 605px)\" rel=\"stylesheet\"/>"; 
+			echo "<link href=\"Styles/ultra_small.css\" type=\"text/css\" media=\"screen and (max-width: 450px)\" rel=\"stylesheet\"/>";
 			
 			echo "</head>";
 		echo "<body>";
@@ -160,7 +163,9 @@ centerPopup();
 				echo "<div class=\"menu_item\"><a href=\"index.php\">Home</a></div>";
 				$query = mysql_query("SELECT * FROM category") or die("Database error!");
 				while($q = mysql_fetch_array($query)) {
-					echo "<div class=\"menu_item\"><a href=\"category.php?id=" .$q['CategoryID']. "\">" .$q['Categories']. "</a></div>";
+					if($q['CategoryID'] != 1) {
+						echo "<div class=\"menu_item\"><a href=\"category.php?id=" .$q['CategoryID']. "\">" .$q['Categories']. "</a></div>";
+					}
 				}
 			echo "</div>";
 		echo "</div>";
@@ -323,6 +328,7 @@ centerPopup();
 							echo "<input type=\"text\" name=\"username\" placeholder=\"username\" />";
 							echo "<input type=\"password\" name=\"password\" placeholder=\"password\" />";
 							echo "<input type=\"submit\" class=\"submit_button\" value=\"Sign In\" />";
+							echo "<div style=\"clear:both\"></div>";
 						echo "</form>";
 					}
 					else {
@@ -461,12 +467,14 @@ centerPopup();
 						echo $o['OptionName'];
 					echo "</td>";
 					echo "<td>";
-						$form->addInputValue("text", $o['OptionName'], $o['Value']);
+						$form->addInputValue("text", urlencode($o['OptionName']), $o['Value']);
 					echo "</td>";
 				echo "</tr>";
-				
 			}
+			$form->addInputValue("hidden", "option_change", "changed");	
 		echo "</table>";
+		echo "<br />";
+		$form->addInput("submit", "Modify");
 		$form->addFormEnd();
 	}
 

@@ -37,7 +37,7 @@ $ht->htmlStart();
 				echo "<div class=\"sidebar2\">";
 
 					// Elements in left sidebar - existing ones: search, recent_posts, recent_comments, tag_cloud, twitter, register
-					$elements2 = array('register',$_GET['pid'],'twitter');
+					$elements2 = array('register',$_GET['pid'],);
 					$ht->sidebar($elements2);
 
 				echo "</div>";

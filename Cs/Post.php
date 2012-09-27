@@ -222,7 +222,7 @@ class Cs_Post
 		$timedate = $time. "|" .$date;
 
 		// Prevent posting empty comment
-		if($clean_content != "") {
+		if($clean_content != "<br>") {
 			// Prevent recommenting same comment
 			$check = mysql_query("SELECT * FROM comments WHERE comments.Comment LIKE '" .$clean_content. "'") or die("Custom error!");
 			if(mysql_num_rows($check) == 0) {
@@ -288,7 +288,7 @@ class Cs_Post
 		$clean_value = mysql_real_escape_string($value);
 		$cp = 0;
 		
-		$query = mysql_query("SELECT * FROM usernames,post WHERE usernames.UserID LIKE post.PostID AND post.PostID LIKE '" .$clean_value. "'") or die("Custom error!");
+		$query = mysql_query("SELECT * FROM usernames,post WHERE usernames.UserID LIKE post.UserID AND post.PostID LIKE '" .$clean_value. "'") or die("Custom error!");
 		
 		if(mysql_num_rows($query) != 0) {
 			$q = mysql_fetch_array($query);

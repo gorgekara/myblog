@@ -30,6 +30,9 @@ class Cs_Forms
 		else if($type == "textarea") {
 			echo "<textarea name=\"" .$iname. "\" cols=\"100%\">" .$value. "</textarea> <br />";
 		}
+		else if($type == "hidden") {
+			echo "<input type=\"" .$type. "\" name=\"".$iname. "\" value=\"" .$value. "\"/>";
+		}
 		else {
 			echo "<input type=\"" .$type. "\" name=\"".$iname. "\" value=\"" .$value. "\"/> <br />";
 		}

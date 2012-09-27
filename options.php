@@ -25,11 +25,12 @@ $ht->htmlStart();
 			echo "<div class=\"small_content\">";
 				$login->usrOptions($_SESSION['userid']);
 				(isset($_POST['username'])) ? $login->updateUser($_POST['username'],$_POST['password'],$_POST['confirm_password'],$_POST['email'],$_POST['about'],$_POST['name'],$_POST['surname'],$_POST['userid']) : '';
+				(isset($_POST['option_change'])) ? $login->updateOptions($_POST['Site+Title'],$_POST['Footer+text'],$_POST['Blog+tagline'],$_POST['Blog+image']) : '';
 			echo "</div>";
 			echo "<div class=\"sidebar2\">";
 
 				// Elements in left sidebar - existing ones: search, recent_posts, recent_comments, tag_cloud, twitter, register
-				$elements2 = array('register','twitter');
+				$elements2 = array('register','search');
 				$ht->sidebar($elements2);
 
 			echo "</div>";
@@ -38,7 +39,7 @@ $ht->htmlStart();
 		echo "<div class=\"sidebar\">";
 
 			// Elements in right sidebar - existing ones: search, recent_posts, recent_comments, tag_cloud, twitter, register
-			$elements = array('search','popular','recent_posts','recent_comments','tag_cloud');	
+			$elements = array('popular','recent_posts','recent_comments','tag_cloud');	
 			$ht->sidebar($elements);
 		
 		echo "</div>";

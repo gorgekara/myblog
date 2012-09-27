@@ -253,6 +253,20 @@ class Cs_Login
 		echo "</div>";
 	}
 
+	public function updateOptions($title, $footer, $tagline, $image) {
+		$clean_title = mysql_real_escape_string($title);
+		$clean_footer = mysql_real_escape_string($footer);
+		$clean_tagline = mysql_real_escape_string($tagline);
+		$clean_image = mysql_real_escape_string($image);
+		
+		$query_title = mysql_query("UPDATE options SET Value = '" .$clean_title. "' WHERE OptionName LIKE 'Site Title'") or die("Custom error!");
+		$query_footer = mysql_query("UPDATE options SET Value = '" .$clean_footer. "' WHERE OptionName LIKE 'Footer text'") or die("Custom error!");
+		$query_tagline = mysql_query("UPDATE options SET Value = '" .$clean_tagline. "' WHERE OptionName LIKE 'Blog tagline'") or die("Custom error!");
+		$query_image = mysql_query("UPDATE options SET Value = '" .$clean_image. "' WHERE OptionName LIKE 'Blog image'") or die("Custom error!");
+		
+		header("Location: options.php");
+	}
+
 }
 
 ?>

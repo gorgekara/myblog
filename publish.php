@@ -40,7 +40,7 @@ $ht->htmlStart();
 			echo "<div class=\"sidebar2\">";
 
 				// Elements in left sidebar - existing ones: search, recent_posts, recent_comments, tag_cloud, twitter, register
-				$elements2 = array('register','twitter');
+				$elements2 = array('register','search');
 				$ht->sidebar($elements2);
 
 			echo "</div>";
@@ -49,7 +49,7 @@ $ht->htmlStart();
 		echo "<div class=\"sidebar\">";
 
 			// Elements in right sidebar - existing ones: search, recent_posts, recent_comments, tag_cloud, twitter, register
-			$elements = array('search','popular','recent_posts','recent_comments','tag_cloud');	
+			$elements = array('popular','recent_posts','recent_comments','tag_cloud');	
 			$ht->sidebar($elements);
 		
 		echo "</div>";

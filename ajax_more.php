@@ -34,9 +34,7 @@ $sql = mysql_query("SELECT * FROM post, usernames, category WHERE category.Categ
 				echo "</div>";
 			echo "</li>";
 		} 
-
 	?>
-
 <div id="more<?php echo $msg_id; ?>" class="morebox">
 <a href="#" id="<?php echo $msg_id; ?>" class="more">Load more posts</a>
 </div>
